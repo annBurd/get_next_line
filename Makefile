@@ -5,7 +5,6 @@ RM = rm -rf
 SRCS = get_next_line.c
 OBJ = $(SRCS:.c=.o)
 
-# OBJ_DIR = ./obj/
 LIB_DIR = ./libft/
 
 M = main.c
