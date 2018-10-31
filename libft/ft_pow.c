@@ -1,40 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strrchr.c                                       :+:      :+:    :+:   */
+/*   ft_pow.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: aburdeni <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/10/31 18:43:55 by aburdeni          #+#    #+#             */
-/*   Updated: 2018/10/31 18:44:03 by aburdeni         ###   ########.fr       */
+/*   Created: 2018/07/17 19:32:08 by aburdeni          #+#    #+#             */
+/*   Updated: 2018/07/17 19:32:15 by aburdeni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
-
-char	*ft_strrchr(const char *s, int c)
+int	ft_pow(int nb, int power)
 {
-	long	i;
-	long	n;
-	char	*str;
+	int res;
 
-	str = (char*)s;
-	i = 0;
-	n = -1;
-	if (c == '\0')
-		return (&str[ft_strlen(s)]);
-	while (1)
-	{
-		if (str[i] == c || str[i])
-		{
-			if (str[i] == c)
-				n = i;
-		}
-		else
-			break ;
-		i++;
-	}
-	if (n != -1)
-		return (&str[n]);
-	return (NULL);
+	if (power < 0)
+		return (0);
+	if (power == 0 && nb != 0)
+		return (1);
+	res = nb;
+	while (--power > 0)
+		res *= nb;
+	return (res);
 }

@@ -1,40 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strrchr.c                                       :+:      :+:    :+:   */
+/*   ft_lstdel.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: aburdeni <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/10/31 18:43:55 by aburdeni          #+#    #+#             */
-/*   Updated: 2018/10/31 18:44:03 by aburdeni         ###   ########.fr       */
+/*   Created: 2017/12/19 19:27:19 by aburdeni          #+#    #+#             */
+/*   Updated: 2017/12/19 19:27:22 by aburdeni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-char	*ft_strrchr(const char *s, int c)
+void	ft_lstdel(t_list **alst, void (*del)(void *, size_t))
 {
-	long	i;
-	long	n;
-	char	*str;
+	t_list	*this;
+	t_list	*next;
 
-	str = (char*)s;
-	i = 0;
-	n = -1;
-	if (c == '\0')
-		return (&str[ft_strlen(s)]);
-	while (1)
+	if (alst && *alst)
 	{
-		if (str[i] == c || str[i])
+		this = *alst;
+		while (this)
 		{
-			if (str[i] == c)
-				n = i;
+			next = this->next;
+			del(this->content, this->content_size);
+			free(this);
+			this = next;
 		}
-		else
-			break ;
-		i++;
+		*alst = NULL;
 	}
-	if (n != -1)
-		return (&str[n]);
-	return (NULL);
 }

@@ -1,40 +1,38 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strrchr.c                                       :+:      :+:    :+:   */
+/*   ft_strmap.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aburdeni <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: omashkov <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/10/31 18:43:55 by aburdeni          #+#    #+#             */
-/*   Updated: 2018/10/31 18:44:03 by aburdeni         ###   ########.fr       */
+/*   Created: 2017/11/06 20:44:49 by omashkov          #+#    #+#             */
+/*   Updated: 2017/11/24 18:13:23 by omashkov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-char	*ft_strrchr(const char *s, int c)
+char	*ft_strmap(char const *s, char (*f)(char))
 {
-	long	i;
-	long	n;
 	char	*str;
+	size_t	size;
+	size_t	i;
 
-	str = (char*)s;
 	i = 0;
-	n = -1;
-	if (c == '\0')
-		return (&str[ft_strlen(s)]);
-	while (1)
+	size = 0;
+	if (f)
 	{
-		if (str[i] == c || str[i])
+		if (s != NULL)
+			size = ft_strlen(s);
+		if ((str = ft_strnew(size)))
 		{
-			if (str[i] == c)
-				n = i;
+			while (i < size)
+			{
+				if ((str[i] = f((char)s[i])))
+					i++;
+			}
+			return (str);
 		}
-		else
-			break ;
-		i++;
 	}
-	if (n != -1)
-		return (&str[n]);
 	return (NULL);
 }

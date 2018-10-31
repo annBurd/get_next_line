@@ -1,40 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strrchr.c                                       :+:      :+:    :+:   */
+/*   ft_striter.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aburdeni <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: omashkov <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/10/31 18:43:55 by aburdeni          #+#    #+#             */
-/*   Updated: 2018/10/31 18:44:03 by aburdeni         ###   ########.fr       */
+/*   Created: 2017/11/06 19:49:01 by omashkov          #+#    #+#             */
+/*   Updated: 2017/11/06 20:39:04 by omashkov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-char	*ft_strrchr(const char *s, int c)
+void	ft_striter(char *s, void (*f)(char *))
 {
-	long	i;
-	long	n;
-	char	*str;
+	size_t	size;
+	size_t	i;
 
-	str = (char*)s;
 	i = 0;
-	n = -1;
-	if (c == '\0')
-		return (&str[ft_strlen(s)]);
-	while (1)
+	if (!s || !f)
+		return ;
+	if (s)
 	{
-		if (str[i] == c || str[i])
+		size = ft_strlen(s);
+		while (i < size)
 		{
-			if (str[i] == c)
-				n = i;
+			f(&s[i]);
+			i++;
 		}
-		else
-			break ;
-		i++;
 	}
-	if (n != -1)
-		return (&str[n]);
-	return (NULL);
 }

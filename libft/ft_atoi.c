@@ -1,40 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strrchr.c                                       :+:      :+:    :+:   */
+/*   atoi.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: aburdeni <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/10/31 18:43:55 by aburdeni          #+#    #+#             */
-/*   Updated: 2018/10/31 18:44:03 by aburdeni         ###   ########.fr       */
+/*   Created: 2017/11/01 14:46:00 by aburdeni          #+#    #+#             */
+/*   Updated: 2017/11/04 17:16:56 by aburdeni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
-
-char	*ft_strrchr(const char *s, int c)
+int	ft_atoi(const char *s)
 {
-	long	i;
-	long	n;
-	char	*str;
+	int res;
+	int minus;
 
-	str = (char*)s;
-	i = 0;
-	n = -1;
-	if (c == '\0')
-		return (&str[ft_strlen(s)]);
-	while (1)
+	res = 0;
+	minus = 1;
+	while (*s < 33)
+		s++;
+	if (*s == '-' || *s == '+')
+		(*s++ == '-') && (minus = -1);
+	while (*s)
 	{
-		if (str[i] == c || str[i])
-		{
-			if (str[i] == c)
-				n = i;
-		}
-		else
-			break ;
-		i++;
+		if (*s < '0' || *s > '9')
+			return (res * minus);
+		res = res * 10 + *s++ - 48;
 	}
-	if (n != -1)
-		return (&str[n]);
-	return (NULL);
+	return (res * minus);
 }

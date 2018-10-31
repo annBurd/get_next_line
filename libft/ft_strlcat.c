@@ -5,27 +5,33 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: aburdeni <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/11/27 17:06:51 by aburdeni          #+#    #+#             */
-/*   Updated: 2017/11/27 17:06:56 by aburdeni         ###   ########.fr       */
+/*   Created: 2018/10/31 18:43:18 by aburdeni          #+#    #+#             */
+/*   Updated: 2018/10/31 18:43:28 by aburdeni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-size_t	ft_strlcat(char *dst, const char *src, size_t size)
+size_t	ft_strlcat(char *dst, const char *src, size_t dstsize)
 {
-	size_t	len_d;
-	size_t	len_s;
+	size_t	i;
+	long	j;
+	long	n;
+	size_t	sum;
 
-	len_d = ft_strlen(dst);
-	len_s = 0;
-	if (size <= len_d)
-		return (ft_strlen(src) + size);
-	while (src[len_s] && len_d + len_s < size - 1)
+	j = 0;
+	i = ft_strlen(dst);
+	if (dstsize <= ft_strlen(dst))
+		sum = dstsize + ft_strlen(src);
+	else
+		sum = ft_strlen(dst) + ft_strlen(src);
+	n = dstsize - ft_strlen(dst);
+	while ((j < (n - 1)) && src[j])
 	{
-		dst[len_d + len_s] = src[len_s];
-		len_s++;
+		dst[i] = src[j];
+		j++;
+		i++;
 	}
-	dst[len_d + len_s] = '\0';
-	return (len_d + ft_strlen(src));
+	dst[i] = 0;
+	return (sum);
 }

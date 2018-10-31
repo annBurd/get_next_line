@@ -1,40 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strrchr.c                                       :+:      :+:    :+:   */
+/*   ft_range.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: aburdeni <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/10/31 18:43:55 by aburdeni          #+#    #+#             */
-/*   Updated: 2018/10/31 18:44:03 by aburdeni         ###   ########.fr       */
+/*   Created: 2017/09/28 22:37:16 by aburdeni          #+#    #+#             */
+/*   Updated: 2018/07/31 20:18:50 by aburdeni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-char	*ft_strrchr(const char *s, int c)
+int	*ft_range(int start, int end)
 {
-	long	i;
-	long	n;
-	char	*str;
+	int *tab;
+	int size;
 
-	str = (char*)s;
-	i = 0;
-	n = -1;
-	if (c == '\0')
-		return (&str[ft_strlen(s)]);
-	while (1)
-	{
-		if (str[i] == c || str[i])
-		{
-			if (str[i] == c)
-				n = i;
-		}
-		else
-			break ;
-		i++;
-	}
-	if (n != -1)
-		return (&str[n]);
-	return (NULL);
+	size = start > end ? start - end + 1 : end - start + 1;
+	tab = (int*)malloc(sizeof(int) * size);
+	if (start > end)
+		while (size)
+			tab[--size] = start--;
+	else
+		while (size)
+			tab[--size] = start++;
+	return (tab);
 }

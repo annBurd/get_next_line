@@ -1,40 +1,43 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strrchr.c                                       :+:      :+:    :+:   */
+/*   ft_itoa.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: aburdeni <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/10/31 18:43:55 by aburdeni          #+#    #+#             */
-/*   Updated: 2018/10/31 18:44:03 by aburdeni         ###   ########.fr       */
+/*   Created: 2017/11/04 12:57:42 by aburdeni          #+#    #+#             */
+/*   Updated: 2017/11/04 17:02:04 by aburdeni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-char	*ft_strrchr(const char *s, int c)
+static char	*pn(char *s, int n, int t)
 {
-	long	i;
-	long	n;
-	char	*str;
+	unsigned int	ui;
 
-	str = (char*)s;
-	i = 0;
-	n = -1;
-	if (c == '\0')
-		return (&str[ft_strlen(s)]);
-	while (1)
+	ui = (n < 0) ? -n : n;
+	s[t--] = '\0';
+	if (ui == 0)
+		s[t] = '0';
+	while (ui > 0)
 	{
-		if (str[i] == c || str[i])
-		{
-			if (str[i] == c)
-				n = i;
-		}
-		else
-			break ;
-		i++;
+		s[t--] = ui % 10 + 48;
+		ui /= 10;
+		if (n < 0 && t == 0)
+			s[t] = '-';
 	}
-	if (n != -1)
-		return (&str[n]);
-	return (NULL);
+	return (s);
+}
+
+char		*ft_itoa(int n)
+{
+	int		i;
+	char	*res;
+
+	i = ft_nbrlen(n, 10);
+	if (!(res = ft_strnew(i)))
+		return (NULL);
+	res = pn(res, n, i);
+	return (res);
 }

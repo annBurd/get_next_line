@@ -1,40 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strrchr.c                                       :+:      :+:    :+:   */
+/*   ft_strshift.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: aburdeni <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/10/31 18:43:55 by aburdeni          #+#    #+#             */
-/*   Updated: 2018/10/31 18:44:03 by aburdeni         ###   ########.fr       */
+/*   Created: 2018/07/24 18:37:04 by aburdeni          #+#    #+#             */
+/*   Updated: 2018/07/31 20:21:36 by aburdeni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
-
-char	*ft_strrchr(const char *s, int c)
+char	ft_strshift(char c, int n)
 {
-	long	i;
-	long	n;
-	char	*str;
-
-	str = (char*)s;
-	i = 0;
-	n = -1;
-	if (c == '\0')
-		return (&str[ft_strlen(s)]);
-	while (1)
-	{
-		if (str[i] == c || str[i])
-		{
-			if (str[i] == c)
-				n = i;
-		}
-		else
-			break ;
-		i++;
-	}
-	if (n != -1)
-		return (&str[n]);
-	return (NULL);
+	if (c >= 'A' && c <= 'Z')
+		c = (char)((c + n <= 'Z') ? c + n : ((c - 'A' + n) % 26 + 'A'));
+	else if (c >= 'a' && c <= 'z')
+		c = (char)((c + n <= 'z') ? c + n : ((c - 'a' + n) % 26 + 'a'));
+	return (c);
 }
