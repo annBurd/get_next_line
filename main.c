@@ -1,4 +1,10 @@
 #include "get_next_line.h"
+#include <stdio.h>
+// # include <sys/types.h>
+// # include <sys/stat.h>
+// # include <string.h>
+// # include <unistd.h>
+# include <fcntl.h>
 
 int main(int argc, char const *argv[])
 {
@@ -15,15 +21,14 @@ int main(int argc, char const *argv[])
 			fd = open(argv[n], O_RDONLY);
 			while (get_next_line(fd, &line) > 0)
 			{
-				printf(RED "%s\n", line);
+				printf("%s\n", line);
 				ft_strdel(&line);
 			}
 			close(fd);
-			printf(WHITE "=========================\n");
+			printf("=========================\n");
 			n++;
 		}
 	}
-
-	system("\033[2;93mleaks gnl");
+	system("leaks gnl");
 	return 0;
 }

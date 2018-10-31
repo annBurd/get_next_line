@@ -12,18 +12,10 @@
 
 #include "get_next_line.h"
 
-static void	fill_the_buf(const int fd, char **buf, int *rb)
-{
-	*buf = ft_memalloc(BUFF_SIZE + 1);
-	*rb = read(fd, *buf, BUFF_SIZE);
-	buf[0][BUFF_SIZE] = 0;
-}
-
-static char	*check_fd(const int fd, t_fd **head, int *rb)
+static char	*check_fd(const int fd, t_fd **head)
 {
 	t_fd	*tmp;
 
-	(void)*rb;
 	tmp = *head;
 	while (tmp)
 	{
@@ -39,23 +31,20 @@ static char	*check_fd(const int fd, t_fd **head, int *rb)
 	return (tmp->s);
 }
 
-static int	read_to_nl(const int fd, char **buf)
+static int	read_till_new_line(const int fd, char **buf)
 {
-	char	*buf_tmp;
+	char	buf_tmp[BUFF_SIZE + 1];
 	char	*fresh;
-	int		rb;
+	int		bytes;
 
-	fill_the_buf(fd, &buf_tmp, &rb);
-	if (rb == 0 && (ft_strlen(buf_tmp) == 0))
-	{
-		free(buf_tmp);
+	ft_memset(buf_tmp, 0, BUFF_SIZE);
+	bytes = read(fd, buf_tmp, BUFF_SIZE);
+	if (!bytes)
 		return (-2);
-	}
 	fresh = ft_strjoin(*buf, buf_tmp);
-	free(buf_tmp);
 	free(*buf);
 	*buf = fresh;
-	return (rb);
+	return (bytes);
 }
 
 int			get_next_line(const int fd, char **line)
@@ -64,17 +53,17 @@ int			get_next_line(const int fd, char **line)
 	char		*buf;
 	char		*rebuf;
 	char		*end;
-	int			rb;
+	int			bytes;
 
 	if (fd < 0 || BUFF_SIZE <= 0 || !line || read(fd, "", 0) < 0)
 		return (-1);
-	buf = check_fd(fd, &head, &rb);
+	buf = check_fd(fd, &head);
 	end = ft_strchr(buf, '\n');
 	while (end == NULL)
 	{
-		rb = read_to_nl(fd, &buf);
-		end = (rb > 0) ? ft_strchr(buf, '\n') : ft_strchr(buf, 0);
-		if (rb == -2 && end == buf)
+		bytes = read_till_new_line(fd, &buf);
+		end = (bytes > 0) ? ft_strchr(buf, '\n') : ft_strchr(buf, 0);
+		if (bytes == -2 && end == buf)
 			return (0);
 	}
 	*line = ft_strsub(buf, 0, end - buf);
