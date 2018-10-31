@@ -23,6 +23,7 @@ all:
 clean:
 	@$(RM) $(OBJ)
 	@$(RM) $(MO)
+	@make -C $(LIB_DIR) clean
 	
 fclean:	clean
 	@$(RM) $(BIN)
