@@ -1,9 +1,5 @@
 #include "get_next_line.h"
 #include <stdio.h>
-// # include <sys/types.h>
-// # include <sys/stat.h>
-// # include <string.h>
-// # include <unistd.h>
 
 int main(int argc, char const *argv[])
 {
